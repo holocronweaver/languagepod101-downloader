@@ -40,6 +40,7 @@ try:
     topic = re.search('www\.(.*)\.com', rss_url).group(1)
 except Exception:
     print('Error: {} is not a valid URL'.format(rss_url))
+    exit()
 rss_cache = topic + '.xml'
 if not os.path.isfile(rss_cache):
     response = requests.get(rss_url, auth=credentials)
