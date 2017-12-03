@@ -17,11 +17,11 @@ Requirements
 
 Usage
 ===
-# Download
+## Download
 1. Fill in `parameters.py` with your download target and account information.
 1. Run the download script: `python3 download.py parameters.py`. This could take a few hours depending on the size of the archives and the speed of your connect. If for any reason the script is interrupted before completion, just run it again and it will resume from where it left off. Resuming will skip any files which were already downloaded.
 1. Check the `download.log` in your output path for `ERROR`s. A few errors is normal, especially in older feeds like JapanesePod101 which contain some dead links.
-# Organize (optional)
+## Organize (optional)
 1. After downloading is complete, run the organize script: `python3 organize.py parameters.py`. Your files will be organized into subfolders according to subject.
 1. Check the `organize.log` in your output path for `ERROR`s. There shouldn't be any, but a few is probably OK.
 1. Typically a few files have inconsistent or malformed filenames and thus are not auto-organized. You can organize these manually by fixing whatever is inconsistent with the filenames, then either run `organize.py` again or manually move the files to their correct folders.
