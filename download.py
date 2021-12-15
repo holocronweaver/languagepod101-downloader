@@ -19,6 +19,10 @@ import threading
 import time
 import xml.etree.ElementTree as ElementTree
 
+headers = {
+    'user-agent': 'iTunes/12.9.5 (Macintosh; OS X 10.14.6) AppleWebKit/607.3.9'
+}
+
 # Parse parameters.
 if len(sys.argv) != 2:
     print('Usage: python3 download.py [PYTHON_PARAMETERS_FILE]')
@@ -43,7 +47,7 @@ except Exception:
     exit()
 rss_cache = topic + '.xml'
 if not os.path.isfile(rss_cache):
-    response = requests.get(rss_url, auth=credentials)
+    response = requests.get(rss_url, auth=credentials, headers=headers)
     with open(rss_cache, 'w') as f:
         f.write(response.text)
 
@@ -84,9 +88,9 @@ def download_item(item):
     try:
         response = None
         if 'amazonaws' in url:
-            response = requests.get(url, stream=True)
+            response = requests.get(url, stream=True, headers=headers)
         else:
-            response = requests.get(url, auth=credentials, stream=True)
+            response = requests.get(url, auth=credentials, stream=True, headers=headers)
 
         response.raise_for_status()
         with open(outpath, 'wb') as f:
