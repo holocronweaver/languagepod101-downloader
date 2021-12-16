@@ -75,7 +75,8 @@ def download_item(item):
     filename = '{}.{}'.format(title_clean, orig_ext)
     outpath = os.path.join(output_dir, filename)
 
-    access_time = datetime.strptime(pubdate, "%a, %d %b %Y %H:%M:%S %z").timestamp()
+    pubdate = datetime.strptime(pubdate, "%a, %d %b %Y %H:%M:%S %z")
+    access_time = pubdate.timestamp()
 
     global count
     with count_lock:
@@ -84,6 +85,11 @@ def download_item(item):
 
     if os.path.isfile(outpath) and os.path.getsize(outpath) > 0:
         logging.info(outpath + ' already exists, skipping.')
+        return
+
+    if not params.start_date < pubdate < params.end_date:
+        logging.info('{} with publish date {} is not within start and end dates: {} & {}. Skipping.'.format(
+            title, pubdate, params.start_date, params.end_date))
         return
 
     try:
