@@ -11,6 +11,7 @@ import importlib
 import logging
 from multiprocessing.dummy import Pool as ThreadPool
 import os
+import random
 import re
 import requests
 import shutil
@@ -100,7 +101,7 @@ def download_item(item):
         logging.error("Failed to download file", exc_info=True)
 
     # Avoid overburdening the file server.
-    time.sleep(0.25)
+    time.sleep(0.25 + random.uniform(-0.15, 0.25))
 
 
 pool = ThreadPool(num_threads)
